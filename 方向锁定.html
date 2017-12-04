@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0">
+    <title>移动端-方向锁定</title>
+    <style media="screen">
+      * {margin:0;padding:0;}
+      html,body{width:100%;height:100%;}
+      body{overflow: hidden;}
+      html{font-size:20px;}
+      ol{list-style: none;}
+      .main{width:100%;height:100%;}
+      .wrapper{background: #ccc;}
+      .pull_down{position: relative;z-index: 2;text-align: center;line-height:30px;}
+      .content{transform:translateY(0px);background-color:#fff;position: relative;z-index: 3;top:-30px;}
+      .banner {overflow:hidden;width:32rem;height:10rem;}
+      .ul_list{width:2000rem;height:10rem;list-style: none;transform:translateX(0px);}
+      .ul_list li{float: left;width:32rem;height:10rem;background:#ccc;}
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="wrapper">
+        <div class="pull_down">下拉刷新</div>
+        <div class="content">
+          <div class="banner">
+            <ul class="ul_list">
+              <li style="background-color:#fc0">0</li>
+              <li style="background-color:#f0c">1</li>
+              <li style="background-color:#0cf">2</li>
+              <li style="background-color:#0fc">3</li>
+              <li style="background-color:#00f">4</li>
+            </ul>
+          </div>
+          <ol class="ol_list"></ol>
+        </div>
+      </div>
+    </div>
+    <script src="jquery-3.2.1.js" charset="utf-8"></script>
+    <script src="main.js" charset="utf-8"></script>
+  </body>
+</html>

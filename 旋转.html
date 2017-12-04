@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0">
+    <title>移动端手势识别-旋转原理</title>
+    <style media="screen">
+      * {margin:0;padding:0;}
+      .box {width:150px;height:150px;background-color:green;margin:50px auto;transform: rotate(0deg);}
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <script type="text/javascript">
+      let oBox = document.querySelector(".box");
+      let old_Ang = 0;
+      oBox.addEventListener("touchstart",function(ev){
+        if(ev.targetTouches.length>=2){
+          let a = ev.targetTouches[0].clientX-ev.targetTouches[1].clientX;
+          let b = ev.targetTouches[0].clientY-ev.targetTouches[1].clientY;
+          let Ang = Math.atan2(b,a)*180/Math.PI;
+          let StartAng = old_Ang;
+          ev.preventDefault();
+        }
+        function FnMove(ev){
+          if(ev.targetTouches.length>=2){
+            let a = ev.targetTouches[0].clientX-ev.targetTouches[1].clientX;
+            let b = ev.targetTouches[0].clientX-ev.targetTouches[1].clientY;
+            let Ang2 = Math.atan2(b,a)*180/Math.PI;
+            let old_Ang = StartAng+Ang-Ang2;
+            this.style.transform = `transform(${old_Ang}deg)`;
+          }
+        }
+        function FnEnd(){
+          oBox.removeEventListener("touchmove",FnMove,false);
+          oBox.removeEventListener("touchend",FnEnd,false);
+        }
+          oBox.addEventListener("touchmove",FnMove,false);
+          oBox.addEventListener("touchend",FnEnd,false);
+      },false);
+    </script>
+  </body>
+</html>

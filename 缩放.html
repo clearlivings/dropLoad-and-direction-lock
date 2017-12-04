@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>移动端手势-缩放原理</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0">
+    <style media="screen">
+    *{margin:0;padding:0}
+    .box {width: 150px;height: 150px;background-color: green;margin:50px auto;transform: scale(0deg);}
+    </style>
+  </head>
+  <body>
+    <div class="box"></div>
+    <script type="text/javascript">
+      let oBox = document.querySelector(".box");
+      oBox.addEventListener("touchstart",function(ev){
+        ev.preventDefault();
+          let a = ev.targetTouches[0].clientX - ev.targetTouches[1].clientX;
+          let b = ev.targetTouches[0].clientY - ev.targetTouches[1].clientY;
+          let dis = Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+          let w = oBox.offsetWidth;
+          let h = oBox.offsetHeight;
+        function FnMove(ev){
+          if(ev.targetTouches.length>=2){
+            let a = ev.targetTouches[0].clientX - ev.targetTouches[1].clientX;
+            let b = ev.targetTouches[0].clientY - ev.targetTouches[1].clientY;
+            let dis2 = Math.sqrt(Math.pow(a,2)+Math.pow(b,2));
+            oBox.style.width = w/dis*dis2 + "px";
+            oBox.style.height = h/dis*dis2 + "px";
+          }
+        }
+        function FnEnd(){
+          oBox.removeEventListener("touchmove",FnMove,false);
+          oBox.removeEventListener("touchend",FnEnd,false);
+        }
+        if(ev.targetTouches.length>=2){
+          ev.preventDefault();
+          oBox.addEventListener("touchmove",FnMove,false);
+          oBox.addEventListener("touchend",FnEnd,false);
+        }
+      },false)
+    </script>
+  </body>
+</html>
